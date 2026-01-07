@@ -1,0 +1,94 @@
+inst.reqresp.enc=yes
+inst.reqresp.encdeckey=s+Uj6hsgZQkDkdgHmUi+blAvQiozx+iudjpsrknwasi=
+inst.router=ind
+inst.instcode=IND
+
+router.ind.instid=IND
+router.ind.name=IND
+router.ind.pool=500
+router.ind.bankcode=19
+router.ind.bankname=Indian Bank (including Allahabad Bank)
+
+#ActiveMQ Configuration
+spring.activemq.user=admin
+spring.activemq.password=admin
+ActiveMQServerUrl=tcp://localhost:61616
+server.inbound.topic = NCCRPAPIRequest
+server.outbound.topic = NCCRPAPIResponse
+
+server.filebase.inbound.topic = NCCRPFILERequest
+server.filebase.outbound.topic = NCCRPFILEResponse
+
+server.failover.inbound.topic = NCCRPFailoverRequest
+server.failover.outbound.topic = NCCRPFailoverResponse
+
+server.inbound.sync.topic = NCCRPAPISyncRequest
+server.outbound.sync.topic = NCCRPAPISyncResponse
+
+router.ind.inbound.topic=NCCRPAPIRequest
+router.ind.outbound.topic=NCCRPAPIResponse
+
+router.ind.inbound.sync.topic=NCCRPAPISyncRequest
+router.ind.outbound.sync.topic=NCCRPAPISyncResponse
+
+router.ind.reqIdentifier=AQREQUEST
+router.ind.resIdentifier=AQRESPONSE
+router.mynt.resIdentifier=AQRESPONSE
+
+router.ind.name=IND
+router.ind.hostName=tcp://localhost
+router.ind.port=61616
+router.ind.type=C
+router.ind.net.echo=180
+router.ind.net.logon=300
+router.ind.net.timeout=10
+router.ind.recon.time=1000
+router.ind.pool=100
+router.ind.net.enable.flag=false
+router.ind.msg.time=500
+
+
+#Callback Details need to change
+router.ind.callback.port=49200
+router.ind.callback.hostName=http://localhost
+router.ind.callback.maxConnCount=100
+router.ind.callback.maxPerRoute=100
+router.ind.callback.maxConnPerHost=100
+router.ind.callback.soTimeOut=6000
+router.ind.callback.connTimeOut=6000
+router.ind.callback.keep.alive = 100
+router.ind.callback.endurl=/
+router.ind.callback.sslversion=TLSv1.2
+router.ind.callback.jkspath=myntapihttps.jks
+router.ind.callback.jksfile.password=myntfis
+router.ind.callback.msg.time=120
+router.ind.callback.middleware.header.adding=true
+
+#Middleware API Details need to change
+router.ind.middleware.port=49200
+router.ind.middleware.hostName=https://mnrlbankapitest.sancharsaathi.gov.in/
+router.ind.middleware.maxConnCount=100
+router.ind.middleware.maxPerRoute=100
+router.ind.middleware.maxConnPerHost=100
+router.ind.middleware.soTimeOut=6000
+router.ind.middleware.connTimeOut=6000
+router.ind.middleware.keep.alive = 100
+router.ind.middleware.endurl=/mnrlbankapi/online/count
+router.ind.middleware.sslversion=TLSv1.2
+router.ind.middleware.jkspath=MNRLKeystore.jks
+router.ind.middleware.jksfile.password=mnrl@123
+router.ind.middleware.msg.time=120
+
+##router config
+inst.router.group=indout
+router.group.indout.list=bqr
+router.group.indout.handler.corepool=6
+router.group.indout.handler.maxpool=12
+router.group.indout.handler.formatter=ISO
+
+accountstatement.api.endurl=pprd-intgateway.ib.in/preprod-indianbank/enterprise/service/v1/eq-ac-stmt
+hold.api.endurl=/enquiry/v1/hd-dp
+beneficiiaryfetch.api.endurl=/enquiry/v1/hd-dp 
+accountbankcode.api.endurl=/enquiry/v1/hd-dp
+router.mynt.resIdentifier:AQRESPONSE
+channelBlock.api.endurl=/enquiry/v1/hd-dp 
