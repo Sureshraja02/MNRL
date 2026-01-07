@@ -1,0 +1,42 @@
+<beanio xmlns="http://www.beanio.org/2012/03">
+
+  <!-- 'format' identifies the type of stream -->
+  <stream name="mnrldata" format="csv">
+    <!-- 'class' binds the header record to a java.util.HashMap -->
+  <!--  <record name="header"  occurs="1">
+      <field name="recordType" rid="true" literal="mobile_no" required="true"/>
+      <field name="recordType" rid="true" literal="lsa_id" required="true"/>
+      <field name="recordType" rid="true" literal="lsa_description" required="true"/>
+      <field name="recordType" rid="true" literal="tsp_id" required="true"/>
+      <field name="recordType" rid="true" literal="tsp_description" required="true"/>
+      <field name="recordType" rid="true" literal="disconnection_date" required="true"/>
+      <field name="recordType" rid="true" literal="mnrl_disconnection_reason_decription" required="true"/>
+      <field name="recordType" rid="true" literal="mnrl_disconnection_reason" required="true"/>
+      <field name="recordType" rid="true" literal="action_taken" required="true"/>
+      <field name="recordType" rid="true" literal="action_remarks" />
+      <field name="recordType" rid="true" literal="action_date" />
+      <field name="recordType" rid="true" literal="disconnection_reason" />
+      <field name="recordType" rid="true" literal="grievance_received" />	
+    </record> -->
+  
+    <!-- Detail records are bound to example.Contact -->
+    <record name="mnrldata" class="com.fisglobal.fsg.dip.request.entity.ATRFileRequest_Vo">
+      <!-- 'ignore' indicates this field is not bound to a bean property -->
+      <field name="mobile_no" />
+      <field name="lsa_id" />
+      <field name="lsa_description" />
+      <field name="tsp_id" />
+      <field name="tsp_description" />
+      <field name="disconnection_date" />
+      <field name="mnrl_disconnection_reason_decription" />
+	  <field name="mnrl_disconnection_reason" />
+	  <field name="action_taken" />
+	  <field name="action_remarks" />
+	  <field name="action_date" />
+	  <field name="disconnection_reason" />
+	  <field name="grievance_received" />
+    </record>
+
+    
+  </stream>
+</beanio>
