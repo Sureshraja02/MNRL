@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true">
+
+	<include resource="org/springframework/boot/logging/logback/base.xml" /> 
+
+	<logger name="com.fisglobal.fsg" level="DEBUG" />
+	<logger name="javax.activation" level="WARN" />
+	<logger name="javax.xml.bind" level="WARN" />
+	<logger name="ch.qos.logback" level="WARN" />
+	<logger name="com.codahale.metrics" level="WARN" />
+	<logger name="com.ryantenney" level="WARN" />
+	<logger name="com.sun.xml.internal.bind" level="WARN" />
+	<logger name="com.zaxxer" level="INFO" />
+	<logger name="org.apache" level="WARN" />
+	<logger name="org.apache.catalina.startup.DigesterFactory"
+		level="OFF" />
+	<logger name="org.hibernate.validator" level="WARN" />
+	<logger name="org.hibernate" level="WARN" />
+	<logger name="org.hibernate.ejb.HibernatePersistence"
+		level="OFF" />
+	<logger name="org.atmosphere" level="WARN" />
+	<logger name="org.springframework" level="WARN" />
+	<logger name="org.springframework.web" level="WARN" />
+	<logger name="org.springframework.boot" level="INFO" />
+	<logger name="org.springframework.security" level="INFO" />
+	<logger name="org.springframework.cache" level="WARN" />
+	<logger name="com.zaxxer.hikari" level="INFO" />
+	<logger name="org.springframework.jdbc" level="INFO" />
+	<logger name="org.thymeleaf" level="WARN" />
+	<logger name="jndi" level="INFO" />
+	<logger name="sun.rmi" level="INFO" />
+	<logger name="org.eclipse.jetty" level="INFO" />
+	<logger name="com.fis.pss" level="DEBUG" />
+
+	<contextListener
+		class="ch.qos.logback.classic.jul.LevelChangePropagator">
+		<resetJUL>true</resetJUL>
+	</contextListener>
+	<property name="LOG_DIR" value="./logs" />
+	
+
+	<appender name="SYSOUT"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<encoder
+			class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+			<layout
+				class="com.fisglobal.fsg.ccss.core.utils.MaskingPatternLayoutHashing">
+				<maskPrefix>(number).{15}|(rrn).{10}|(amount).{8}|(root_rrn_transaction_id).{25}|(root_account_number).{25}
+				</maskPrefix>
+				<Pattern>
+					%d{yyyy-MM-dd HH:mm:ss.SSS} %-4relative [%thread] [%-5level] %logger{36} - [Line:%line]- %msg%n
+				</Pattern>
+			</layout>
+		</encoder>
+
+	</appender>
+	<appender name="FILE-AUDIT"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_DIR}/fis-core-api.log</file>
+		<encoder
+			class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+			<layout
+				class="com.fisglobal.fsg.ccss.core.utils.MaskingPatternLayoutHashing">
+				<maskPrefix>(number).{15}|(rrn).{10}|(amount).{10}|(root_rrn_transaction_id).{15}
+				</maskPrefix>
+				<Pattern>
+					%d{yyyy-MM-dd HH:mm:ss.SSS} %-4relative [%thread] [%-5level] %logger{36} - [Line:%line]- %msg%n
+				</Pattern>
+			</layout>
+		</encoder>
+
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- rollover daily -->
+			<fileNamePattern>${LOG_DIR}/%d{yyyy-MM-dd}/fis-core-api.%d{yyyy-MM-dd}.%i.log.zip
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>100MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+	</appender>
+
+	<appender name="FILE-BANK-AUDIT"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_DIR}/fis-bank-api.log</file>
+		<encoder
+			class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+			<layout
+				class="com.fisglobal.fsg.ccss.core.utils.MaskingPatternLayoutHashing">
+				<maskPrefix>(number).{15}|(rrn).{10}|(amount).{10}|(root_rrn_transaction_id).{15}
+				</maskPrefix>
+				<Pattern>
+					%d{yyyy-MM-dd HH:mm:ss.SSS} %-4relative [%thread] [%-5level] %logger{36} - [Line:%line]- %msg%n
+				</Pattern>
+			</layout>
+		</encoder>
+
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- rollover daily -->
+			<fileNamePattern>${LOG_DIR}/%d{yyyy-MM-dd}/fis-bank-api.%d{yyyy-MM-dd}.%i.log.zip
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>100MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+	</appender>
+
+	<appender name="FILE-I4C-AUDIT"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_DIR}/fis-i4c-api.log</file>
+		<encoder
+			class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+			<layout
+				class="com.fisglobal.fsg.ccss.core.utils.MaskingPatternLayoutHashing">
+				<maskPrefix>(number).{15}|(rrn).{10}|(amount).{8}|(root_rrn_transaction_id).{15}
+				</maskPrefix>
+				<Pattern>
+					%d{yyyy-MM-dd HH:mm:ss.SSS} %-4relative [%thread] [%-5level] %logger{36} - [Line:%line]- %msg%n
+				</Pattern>
+			</layout>
+		</encoder>
+
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- rollover daily -->
+			<fileNamePattern>${LOG_DIR}/%d{yyyy-MM-dd}/fis-i4c-api.%d{yyyy-MM-dd}.%i.log.zip
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>100MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+	</appender>
+	
+	<appender name="FILE-SRV-AUDIT"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_DIR}/fis-srv-api.log</file>
+		<encoder
+			class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+			<layout
+				class="com.fisglobal.fsg.ccss.core.utils.MaskingPatternLayoutHashing">
+				<maskPrefix>(number).{15}|(rrn).{10}|(amount).{10}|(root_rrn_transaction_id).{15}
+				</maskPrefix>
+				<Pattern>
+					%d{yyyy-MM-dd HH:mm:ss.SSS} %-4relative [%thread] [%-5level] %logger{36} - [Line:%line]- %msg%n
+				</Pattern>
+			</layout>
+		</encoder>
+
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- rollover daily -->
+			<fileNamePattern>${LOG_DIR}/%d{yyyy-MM-dd}/fis-srv-api.%d{yyyy-MM-dd}.%i.log.zip
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>100MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+	</appender>
+
+	<appender name="FILE-AUDIT-TRACE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${DEV_HOME}/fis-core-api-trace.csv</file>
+		<encoder
+			class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+			<layout
+				class="com.fisglobal.fsg.ccss.core.utils.MaskingPatternLayoutHashing">
+				<maskPrefix>(number).{15}|(rrn).{10}|(amount).{10}|(root_rrn_transaction_id).{15}
+				</maskPrefix>
+				<Pattern> %msg%n </Pattern>
+			</layout>
+		</encoder>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- rollover daily -->
+			<fileNamePattern>${LOG_DIR}/%d{yyyy-MM-dd}/fis-core-api-trace.%d{yyyy-MM-dd}.%i.csv.zip
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>100MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+	</appender>
+	
+	<appender name="FILE-REQ-RES-TRACE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${DEV_HOME}/fis-api-i4c-reqres.txt</file>
+		<encoder
+			class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+			<layout
+				class="com.fisglobal.fsg.ccss.core.utils.MaskingPatternLayoutHashing">
+				<maskPrefix>(number).{15}|(rrn).{10}|(amount).{8}|(root_rrn_transaction_id).{15}
+				</maskPrefix>
+				<Pattern> %msg%n </Pattern>
+			</layout>
+		</encoder>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- rollover daily -->
+			<fileNamePattern>${LOG_DIR}/%d{yyyy-MM-dd}/fis-api-i4c-reqres.%d{yyyy-MM-dd}.%i.txt.zip
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>200MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+	</appender>
+
+	<appender name="HTTP-AUDIT"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_DIR}/http-core.log</file>
+		<encoder
+			class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+			<layout
+				class="com.fisglobal.fsg.ccss.core.utils.MaskingPatternLayoutHashing">
+				<maskPrefix>(number).{15}|(rrn).{10}|(amount).{8}|(root_rrn_transaction_id).{15}
+				</maskPrefix>
+				<Pattern>
+					%d{yyyy-MM-dd HH:mm:ss.SSS} %-4relative [%thread] [%-5level] %logger{36} - [Line:%line]- %msg%n
+				</Pattern>
+			</layout>
+		</encoder>
+
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- rollover daily -->
+			<fileNamePattern>${DEV_HOME}/%d{yyyy-MM-dd}/http-core.%d{yyyy-MM-dd}.%i.log.zip
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>100MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+	</appender>
+
+	<appender name="APACHE-AUDIT"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_DIR}/apache-http.log</file>
+		<encoder
+			class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+			<layout
+				class="com.fisglobal.fsg.ccss.core.utils.MaskingPatternLayoutHashing">
+				<maskPrefix>(number).{15}|(rrn).{10}|(amount).{10}|(root_rrn_transaction_id).{15}
+				</maskPrefix>
+				<Pattern>
+					%d{yyyy-MM-dd HH:mm:ss.SSS} %-4relative [%thread] %-5level	%logger{35} [%X{apiKey}] [%X{instId}] [%X{reqId}] - %msg%n
+				</Pattern>
+			</layout>
+		</encoder>
+
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- rollover daily -->
+			<fileNamePattern>${LOG_DIR}/%d{yyyy-MM-dd}/apache-http.%d{yyyy-MM-dd}.%i.log.zip
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>100MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+	</appender>
+
+	<appender name="ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+		<appender-ref ref="FILE-AUDIT" />
+		<appender-ref ref="SYSOUT" />
+	</appender>
+
+	<appender name="ASYNC-BANK" class="ch.qos.logback.classic.AsyncAppender">
+		<appender-ref ref="FILE-BANK-AUDIT" />
+		<appender-ref ref="SYSOUT" />
+	</appender>
+
+	<appender name="ASYNC-I4C" class="ch.qos.logback.classic.AsyncAppender">
+		<appender-ref ref="FILE-I4C-AUDIT" />
+		<appender-ref ref="SYSOUT" />
+	</appender>
+	
+	<appender name="ASYNC-SRV" class="ch.qos.logback.classic.AsyncAppender">
+		<appender-ref ref="FILE-SRV-AUDIT" />
+		<appender-ref ref="SYSOUT" />
+	</appender>
+
+	<appender name="ASYNC-HTTP" class="ch.qos.logback.classic.AsyncAppender">
+		<appender-ref ref="HTTP-AUDIT" />
+	</appender>
+
+	<appender name="ASYNC-APACHE" class="ch.qos.logback.classic.AsyncAppender">
+		<appender-ref ref="APACHE-AUDIT" />
+	</appender>
+
+	<logger name="com.fis" level="debug" additivity="false">
+		<appender-ref ref="ASYNC" />
+		<appender-ref ref="SYSOUT" />
+	</logger>
+
+	<logger name="analytics" level="INFO" additivity="false">
+		<appender-ref ref="FILE-AUDIT-TRACE" />
+	</logger>
+	
+	<logger name="analytics-I4CReqRes" level="INFO" additivity="false">
+		<appender-ref ref="FILE-REQ-RES-TRACE" />
+	</logger>
+
+	<root level="info">
+		<appender-ref ref="ASYNC" />
+		<appender-ref ref="SYSOUT" />
+	</root>
+
+	<logger name="org.zalando.logbook" level="TRACE" additivity="false">
+		<appender-ref ref="ASYNC-HTTP" />
+	</logger>
+
+	<logger name="org.apache.http" level="DEBUG" additivity="false">
+		<appender-ref ref="ASYNC-APACHE" />
+	</logger>
+	<logger name="com.fisglobal.fsg.ccss.core.scheduler" level="DEBUG" additivity="false">
+		<appender-ref ref="ASYNC-BANK" />
+	</logger>
+
+	<logger name="com.fisglobal.fsg.ccss.core.controller" level="DEBUG" additivity="false">
+		<appender-ref ref="ASYNC-I4C" />
+	</logger>
+	<logger name="com.fisglobal.fsg.ccss.core.service" level="DEBUG" additivity="false">
+		<appender-ref ref="ASYNC-SRV" />
+	</logger>
+	
+</configuration>
