@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true">
+	<include resource="org/springframework/boot/logging/logback/base.xml" /> 
+	<logger name="com.fisglobal.fsg" level="INFO" />
+	<logger name="com.fisglobal.fsg.dip.core.service.ServiceHandler" level="INFO" />
+	<logger name="com.fisglobal.fsg.dip.core.service.ServiceHandlerCbs" level="DEBUG" />
+	<logger name="com.fisglobal.fsg.dip.core.service.ServiceHandlerEnq" level="INFO" />
+	<logger name="javax.activation" level="WARN" />
+	<logger name="javax.xml.bind" level="WARN" />
+	<logger name="ch.qos.logback" level="WARN" />
+	<logger name="com.codahale.metrics" level="WARN" />
+	<logger name="com.ryantenney" level="WARN" />
+	<logger name="com.sun.xml.internal.bind" level="WARN" />
+	<logger name="com.zaxxer" level="WARN" />
+	<logger name="org.apache" level="WARN" />
+	<logger name="org.apache.catalina.startup.DigesterFactory" level="OFF" />
+	<logger name="org.hibernate.SQL" level="WARN" />
+	<logger name="org.hibernate.type" level="WARN" />
+	<logger name="org.hibernate.ejb.HibernatePersistence" level="OFF" />
+	<logger name="org.atmosphere" level="WARN" />
+	<logger name="org.springframework" level="WARN" />
+	<logger name="org.springframework.web" level="WARN" />
+	<logger name="org.springframework.boot" level="WARN" />
+	<logger name="org.springframework.security" level="OFF"/>
+	<logger name="org.springframework.cache" level="WARN" />
+	<logger name="com.zaxxer.hikari" level="WARN" />
+	<logger name="org.springframework.jdbc" level="WARN" />
+	<logger name="org.thymeleaf" level="WARN" />
+	<logger name="jndi" level="WARN" />
+	<logger name="sun.rmi" level="WARN" />
+	<logger name="org.eclipse.jetty" level="WARN" />
+	<logger name="com.fis.pss" level="WARN" />
+	<logger name="org.springframework.web.client.RestTemplate" level="DEBUG" />
+	
+
+	<contextListener
+		class="ch.qos.logback.classic.jul.LevelChangePropagator">
+		<resetJUL>true</resetJUL>
+	</contextListener>	
+	
+	<property name="LOG_DIR" value="C:\Rishikesh\Workspace\Indian Bank\MNRL\25MAR25\ib-mnrl"/>
+	<appender name="SYSOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder
+			class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+			<layout
+				class="com.fisglobal.fsg.dip.core.utils.MaskingPatternLayoutHashing">
+				<maskPrefix>(number).{15}|(rrn).{10}|(amount).{8}|(root_rrn_transaction_id).{25}|(root_account_number).{25}
+				</maskPrefix>
+				<Pattern>
+					%d{yyyy-MM-dd HH:mm:ss.SSS} %-4relative [%thread] [%-5level] %logger{36} [%X{apiKey}] - %msg%n
+				</Pattern>
+			</layout>
+		</encoder>
+
+	</appender>
+	<appender name="FILE-AUDIT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_DIR}/fis-core-api.log</file>
+		<encoder
+			class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+			<layout
+				class="com.fisglobal.fsg.dip.core.utils.MaskingPatternLayoutHashing">
+				<maskPrefix>(number).{15}|(rrn).{10}|(amount).{10}|(root_rrn_transaction_id).{15}
+				</maskPrefix>
+				<Pattern>
+					%d{yyyy-MM-dd HH:mm:ss.SSS} %-4relative [%thread] [%-5level] %logger{36} [%X{apiKey}] - %msg%n
+				</Pattern>
+			</layout>
+		</encoder>
+
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- rollover daily -->
+			<fileNamePattern>${LOG_DIR}/%d{yyyy-MM-dd}/fis-core-api.%d{yyyy-MM-dd}.%i.log.zip
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>100MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+	</appender>
+<!--
+	<appender name="FILE-BANK-AUDIT"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_DIR}/fis-bank-api.log</file>
+		<encoder
+			class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+			<layout
+				class="com.fisglobal.fsg.dip.core.utils.MaskingPatternLayoutHashing">
+				<maskPrefix>(number).{15}|(rrn).{10}|(amount).{10}|(root_rrn_transaction_id).{15}
+				</maskPrefix>
+				<Pattern>
+					%d{yyyy-MM-dd HH:mm:ss.SSS} %-4relative [%thread] [%-5level] %logger{36} - %msg%n
+				</Pattern>
+			</layout>
+		</encoder>
+
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_DIR}/%d{yyyy-MM-dd}/fis-bank-api.%d{yyyy-MM-dd}.%i.log.zip
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>100MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+	</appender>
+
+	<appender name="FILE-I4C-AUDIT"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_DIR}/fis-i4c-api.log</file>
+		<encoder
+			class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+			<layout
+				class="com.fisglobal.fsg.dip.core.utils.MaskingPatternLayoutHashing">
+				<maskPrefix>(number).{15}|(rrn).{10}|(amount).{8}|(root_rrn_transaction_id).{15}
+				</maskPrefix>
+				<Pattern>
+					%d{yyyy-MM-dd HH:mm:ss.SSS} %-4relative [%thread] [%-5level] %logger{36} - %msg%n
+				</Pattern>
+			</layout>
+		</encoder>
+
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_DIR}/%d{yyyy-MM-dd}/fis-i4c-api.%d{yyyy-MM-dd}.%i.log.zip
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>100MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+	</appender>
+	
+	<appender name="FILE-SRV-AUDIT"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_DIR}/fis-srv-api.log</file>
+		<encoder
+			class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+			<layout
+				class="com.fisglobal.fsg.dip.core.utils.MaskingPatternLayoutHashing">
+				<maskPrefix>(number).{15}|(rrn).{10}|(amount).{10}|(root_rrn_transaction_id).{15}
+				</maskPrefix>
+				<Pattern>
+					%d{yyyy-MM-dd HH:mm:ss.SSS} %-4relative [%thread] [%-5level] %logger{36} [%X{apiKey}] - %msg%n
+				</Pattern>
+			</layout>
+		</encoder>
+
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_DIR}/%d{yyyy-MM-dd}/fis-srv-api.%d{yyyy-MM-dd}.%i.log.zip
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>100MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+	</appender>
+-->
+	<!-- <appender name="FILE-REQ-RES-TRACE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_DIR}/fis-api-i4c-reqres.txt</file>
+		<encoder>
+				<Pattern> %msg%n </Pattern>
+		</encoder>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			rollover daily
+			<fileNamePattern>${LOG_DIR}/%d{yyyy-MM-dd}/fis-api-i4c-reqres.%d{yyyy-MM-dd}.%i.txt.zip
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>200MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+	</appender> -->
+	
+	
+
+	<appender name="ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+		<appender-ref ref="FILE-AUDIT" />
+		<appender-ref ref="SYSOUT" />
+	</appender>
+
+	<!--<appender name="ASYNC-BANK" class="ch.qos.logback.classic.AsyncAppender">
+		<appender-ref ref="FILE-BANK-AUDIT" />
+		<appender-ref ref="SYSOUT" />
+	</appender>
+
+	<appender name="ASYNC-I4C" class="ch.qos.logback.classic.AsyncAppender">
+		<appender-ref ref="FILE-I4C-AUDIT" />
+		<appender-ref ref="SYSOUT" />
+	</appender>
+	
+	<appender name="ASYNC-SRV" class="ch.qos.logback.classic.AsyncAppender">
+		<appender-ref ref="FILE-SRV-AUDIT" />
+		<appender-ref ref="SYSOUT" />
+	</appender>
+ -->
+	<logger name="analytics" level="DEBUG" additivity="false">
+		<appender-ref ref="ASYNC" />
+		<appender-ref ref="SYSOUT" />
+	</logger>
+	
+	<!-- <logger name="analytics-DIPReqRes" level="INFO" additivity="false">
+		<appender-ref ref="FILE-REQ-RES-TRACE" />
+	</logger>
+ -->
+	<root level="info">
+		<appender-ref ref="ASYNC" />
+		<appender-ref ref="SYSOUT" />
+	</root>
+
+	<logger name="com.fisglobal.fsg" level="INFO" additivity="false">
+		<appender-ref ref="ASYNC" />
+		<appender-ref ref="SYSOUT" />
+	</logger>
+	<!--
+	<logger name="com.fisglobal.fsg.ccss.core.scheduler" level="DEBUG" additivity="false">
+		<appender-ref ref="ASYNC-BANK" />
+	</logger>
+
+	<logger name="com.fisglobal.fsg.ccss.core.controller" level="DEBUG" additivity="false">
+		<appender-ref ref="ASYNC-I4C" />
+	</logger>
+	<logger name="com.fisglobal.fsg.ccss.core.service" level="DEBUG" additivity="false">
+		<appender-ref ref="ASYNC-SRV" />
+	</logger>
+	-->
+	
+</configuration>
